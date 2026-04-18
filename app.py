@@ -32,5 +32,5 @@ if st.button("추천 보기"):
             st.write(place["실내여부"])
             st.write(place["평점"])
             st.write(place["대표메뉴"])
-            st.write(place["---"])
+            st.write("---")
 
