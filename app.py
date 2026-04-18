@@ -17,11 +17,11 @@ def get_recommendations(places, region, indoor):
 
 st.title("강원 청소년 생활 도우미(카페)")
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
-selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실외"])
+selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실내외"])
 
 
 if st.button("추천 보기"):
-    recommendations = get_recommendations(places, region)
+    recommendations = get_recommendations(places, indoor)
 
     for place in recommendations:
         st.write(place["이름"])
