@@ -31,7 +31,3 @@ if st.button("추천 보기"):
         st.write(place["대표메뉴"])
         st.write(place["---"])
 
-if st.button("추천 보기"):
-    recommendations = get_recommendations(places, selected_region, selected_indoor)
-
-    if len(recommendations) == 0:
