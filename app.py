@@ -10,7 +10,7 @@ places = [
 
 def get_recommendations(places, region, indoor):
     result = []
-    for place in data:
+    for place in places:
         if place["지역"] == region and place["실내여부"] == indoor:
             result.append(place)
     return result
