@@ -11,7 +11,7 @@ places = [
 def get_recommendations(places, region, indoor):
     result = []
     for place in places:
-        if place["지역"] == region and place["실내여부"] == indoor and place[평점]<=point:
+        if place["지역"] == region and place["실내여부"] == indoor and place["평점"]<=point:
             result.append(place)
     return result
 
