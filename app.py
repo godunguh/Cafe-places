@@ -23,11 +23,14 @@ selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실�
 if st.button("추천 보기"):
     recommendations = get_recommendations(places, region)
 
-    for place in recommendations:
-        st.write(place["이름"])
-        st.write(place["지역"])
-        st.write(place["실내여부"])
-        st.write(place["평점"])
-        st.write(place["대표메뉴"])
-        st.write(place["---"])
+    if len(recommendations) == 0:
+        st.write("해당하는 장소 없음")
+    else:
+        for place in recommendations:
+            st.write(place["이름"])
+            st.write(place["지역"])
+            st.write(place["실내여부"])
+            st.write(place["평점"])
+            st.write(place["대표메뉴"])
+            st.write(place["---"])
 
