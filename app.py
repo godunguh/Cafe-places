@@ -8,7 +8,7 @@ places = [
     {"이름": "갤러리밥스", "지역": "강릉", "실내여부": "실내", "평점": 4.5, "대표메뉴": "초옥이커피"}
 ]
 
-def get_recommendations(places, region, indoor):
+def get_recommendations(places, region, indoor, point):
     result = []
     for place in places:
         if place["지역"] == region and place["실내여부"] == indoor and place["평점"]<=point:
