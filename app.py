@@ -22,7 +22,7 @@ selected_point = st.number_input("평점을 선택하세요", min_value=0)
 
 
 if st.button("추천 보기"):
-    recommendations = get_recommendations(places, selected_region, selected_indoor)
+    recommendations = get_recommendations(places, selected_region, selected_indoor, selected_point)
 
     if len(recommendations) == 0:
         st.write("해당하는 장소 없음")
