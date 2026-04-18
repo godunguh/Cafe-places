@@ -11,13 +11,14 @@ places = [
 def get_recommendations(places, region, indoor):
     result = []
     for place in places:
-        if place["지역"] == region and place["실내여부"] == indoor:
+        if place["지역"] == region and place["실내여부"] == indoor and place[평점]<=point:
             result.append(place)
     return result
 
 st.title("강원 청소년 생활 도우미(카페)")
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
 selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실내외"])
+selected_point = st.number_input("평점을 선택하세요", min_value=0)
 
 
 if st.button("추천 보기"):
