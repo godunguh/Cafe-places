@@ -1,2 +1,2 @@
 # Cafe-places
-# 뭐
+# 강원도
