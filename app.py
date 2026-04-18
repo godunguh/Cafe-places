@@ -8,7 +8,7 @@ places = [
     {"이름": "갤러리밥스", "지역": "강릉", "실내여부": "실내", "평점": 4.5, "대표메뉴": "초옥이커피"}
 ]
 
-def get_recommendations(data, region, indoor):
+def get_recommendations(places, region, indoor):
     result = []
     for place in data:
         if place["지역"] == region and place["실내여부"] == indoor:
@@ -25,3 +25,13 @@ if st.button("추천 보기"):
 
     for place in recommendations:
         st.write(place["이름"])
+        st.write(place["지역"])
+        st.write(place["실내여부"])
+        st.write(place["평점"])
+        st.write(place["대표메뉴"])
+        st.write(place["---"])
+
+if st.button("추천 보기"):
+    recommendations = get_recommendations(places, selected_region, selected_indoor)
+
+    if len(recommendations) == 0:
