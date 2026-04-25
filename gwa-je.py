@@ -24,7 +24,9 @@ def find_places(places, region, inout, point, menu):
     result = []
     for place in places:
         # 아래 조건문을 완성하세요
-        if ______________________________________________:
+        if (place["지역"] == region and
+            place["실내여부"] == inout and 
+            place["평점"] >= point ):
             result.append(place)
     return result
 
@@ -37,7 +39,7 @@ def add_place(places, name, region, inout, point, menu):
         "평점": ____________________,
         "대표메뉴": ____________________
     }
-    place_list.append(new_place)
+    places.append(new_place)
 
 
 st.title("강원카페추천앱")
