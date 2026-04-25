@@ -52,7 +52,7 @@ if menu == "전체 보기":
 elif menu == "추천 받기":
     region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
     inout = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
-    point = st.number_input("평점을 입력하세요", min_value=0, step=1, value=5)
+    point = st.number_input("평점을 입력하세요", min_value=0, step=0.5, value=5)
 
     result_places = find_places(places, region, inout, point, menu)
 
@@ -75,9 +75,9 @@ elif menu == "장소 추가":
     region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
     inout = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
     point = st.number_input("평점을 입력하세요", min_value=0, step=5)
-    menu = st.text_input("대표메뉴을를 입력하세요")
+    menu = st.text_input("대표메뉴를 입력하세요")
 
     if st.button("장소 추가"):
         # 아래 함수 호출을 완성하세요
-        ______________________________________________
+        add_place(places, name, region, inout, point, menu)
         st.success("새 장소가 추가되었습니다")
