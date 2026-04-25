@@ -33,11 +33,11 @@ def find_places(places, region, inout, point, menu):
 
 def add_place(places, name, region, inout, point, menu):
     new_place = {
-        "이름": ____________________,
-        "지역": ____________________,
-        "실내여부": ____________________,
-        "평점": ____________________,
-        "대표메뉴": ____________________
+        "이름": name,
+        "지역": region,
+        "실내여부": inout,
+        "평점": point,
+        "대표메뉴": menu
     }
     places.append(new_place)
 
@@ -59,7 +59,7 @@ elif menu == "추천 받기":
     st.subheader("추천 결과")
 
     # 아래 빈칸을 완성하세요
-    if __________________________________:
+    if len(result_places) == 0:
         for place in result_places:
             st.write("이름:",place["이름"])
             st.write("지역:", place["지역"])
