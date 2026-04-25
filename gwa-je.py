@@ -21,7 +21,7 @@ def show_all_places(places):
         st.write("---")
 
 
-def find_places(st.session_state.places, region, inout, point, menu):
+def find_places(places, region, inout, point, menu):
     result = []
     for place in st.session_state.places:
         # 아래 조건문을 완성하세요
