@@ -9,7 +9,7 @@ if "places" not in st.session_state:
 ]
 
 
-def show_all_places(places):
+def show_all_places(st.session_state.places):
     st.subheader("전체 장소 보기")
     for place in places:
         # 아래 빈칸을 완성하세요
@@ -21,9 +21,9 @@ def show_all_places(places):
         st.write("---")
 
 
-def find_places(places, region, inout, point, menu):
+def find_places(st.session_state.places, region, inout, point, menu):
     result = []
-    for place in places:
+    for place in st.session_state.places:
         # 아래 조건문을 완성하세요
         if (place["지역"] == region and
             place["실내여부"] == inout and 
@@ -32,7 +32,7 @@ def find_places(places, region, inout, point, menu):
     return result
 
 
-def add_place(places, name, region, inout, point, menu):
+def add_place(st.session_state.places, name, region, inout, point, menu):
     new_place = {
         "이름": name,
         "지역": region,
@@ -40,7 +40,7 @@ def add_place(places, name, region, inout, point, menu):
         "평점": point,
         "대표메뉴": menu
     }
-    places.append(new_place)
+    st.session_state.places.append(new_place)
 
 
 st.title("강원카페추천앱")
@@ -48,14 +48,14 @@ st.title("강원카페추천앱")
 menu = st.selectbox("기능을 선택하세요", ["전체 보기", "추천 받기", "장소 추가"])
 
 if menu == "전체 보기":
-    show_all_places(places)
+    show_all_places(st.session_state.places)
 
 elif menu == "추천 받기":
     region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
     inout = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
     point = st.number_input("평점을 입력하세요", min_value=0, step=1, value=5)
 
-    result_places = find_places(places, region, inout, point, menu)
+    result_places = find_places(st.session_state.places, region, inout, point, menu)
 
     st.subheader("추천 결과")
 
@@ -80,7 +80,5 @@ elif menu == "장소 추가":
 
     if st.button("장소 추가"):
         # 아래 함수 호출을 완성하세요
-        add_place(places, name, region, inout, point, menu)
+        add_place(st.session_state.places, name, region, inout, point, menu)
         st.success("새 장소가 추가되었습니다")
-
-        show_all_places(places)
