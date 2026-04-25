@@ -28,7 +28,7 @@ def find_places(places, region, inout, point, menu):
         if (place["지역"] == region and
             place["실내여부"] == inout and 
             place["평점"] >= point ):
-            result.append(st.session_state.places)
+            result.append(place)
     return result
 
 
@@ -55,7 +55,7 @@ elif menu == "추천 받기":
     inout = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
     point = st.number_input("평점을 입력하세요", min_value=0, step=1, value=5)
 
-    result_places = find_places(places, region, inout, point, menu)
+    result_places = find_places(st.session_state.places, region, inout, point, menu)
 
     st.subheader("추천 결과")
 
@@ -80,5 +80,5 @@ elif menu == "장소 추가":
 
     if st.button("장소 추가"):
         # 아래 함수 호출을 완성하세요
-        add_place(places, name, region, inout, point, menu)
+        add_place(st.session_state.places, name, region, inout, point, menu)
         st.success("새 장소가 추가되었습니다")
