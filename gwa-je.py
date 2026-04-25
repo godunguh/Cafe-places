@@ -28,7 +28,7 @@ def find_places(places, region, inout, point, menu):
         if (place["지역"] == region and
             place["실내여부"] == inout and 
             place["평점"] >= point ):
-            result.append(place)
+            result.append(places)
     return result
 
 
