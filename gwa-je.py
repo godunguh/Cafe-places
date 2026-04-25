@@ -21,14 +21,14 @@ def show_all_places(places):
         st.write("---")
 
 
-def find_places(places, region, inout, point, menu):
+def find_places(st.session_state.places, region, inout, point, menu):
     result = []
     for place in st.session_state.places:
         # 아래 조건문을 완성하세요
         if (place["지역"] == region and
             place["실내여부"] == inout and 
             place["평점"] >= point ):
-            result.append(places)
+            result.append(st.session_state.places)
     return result
 
 
