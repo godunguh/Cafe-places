@@ -10,7 +10,7 @@ places = [
 
 def show_all_places(places):
     st.subheader("전체 장소 보기")
-    for place in place_list:
+    for place in places:
         # 아래 빈칸을 완성하세요
         st.write("이름:",place["이름"])
         st.write("지역:", place["지역"])
@@ -52,16 +52,18 @@ elif menu == "추천 받기":
     place_type = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
     평점 = st.number_input("평점을 입력하세요", min_value=0, step=1, value=5)
 
-    result_places = find_places(placelist, region, place_type, budget)
+    result_places = find_places(places, region, inout, point, menu)
 
     st.subheader("추천 결과")
 
     # 아래 빈칸을 완성하세요
     if __________________________________:
         for place in result_places:
-            st.write("장소 이름:", place["이름"])
-            st.write("설명:", place["한줄설명"])
-            st.write("예산:", place["예산"], "원")
+            st.write("이름:",place["이름"])
+            st.write("지역:", place["지역"])
+            st.write("실내여부:", place["실내여부"])
+            st.write("평점:", place["평점"])
+            st.write("대표메뉴:", place["대표메뉴"])
             st.write("---")
     else:
         st.write("조건에 맞는 장소가 없습니다")
