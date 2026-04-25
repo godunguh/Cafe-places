@@ -81,3 +81,5 @@ elif menu == "장소 추가":
         # 아래 함수 호출을 완성하세요
         add_place(places, name, region, inout, point, menu)
         st.success("새 장소가 추가되었습니다")
+
+        show_all_places(places)
