@@ -49,8 +49,8 @@ if menu == "전체 보기":
 
 elif menu == "추천 받기":
     region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
-    place_type = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
-    평점 = st.number_input("평점을 입력하세요", min_value=0, step=1, value=5)
+    inout = st.selectbox("실내여부를 선택하세요", ["실내", "실내외"])
+    point = st.number_input("평점을 입력하세요", min_value=0, step=1, value=5)
 
     result_places = find_places(places, region, inout, point, menu)
 
