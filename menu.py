@@ -10,10 +10,24 @@ def load_data():
     if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
 
+        # 업로드한 데이터를 session_state에 저장
+        st.session_state["df"] = df
+
+        st.success("엑셀 파일이 업로드되었습니다.")
         st.subheader("업로드한 장소 데이터")
         st.dataframe(df)
+
     else:
         st.info("엑셀 파일을 업로드하면 데이터가 표시됩니다.")
+
+
+# 저장된 데이터 가져오기 함수
+def get_data():
+    if "df" not in st.session_state:
+        st.warning("먼저 '엑셀 입력' 메뉴에서 엑셀 파일을 업로드하세요.")
+        return None
+
+    return st.session_state["df"]
 
 def get_user_input():
     selected_region = st.selectbox("지역을 선택하세요", df["지역"].unique())
