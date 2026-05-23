@@ -67,9 +67,9 @@ if menu == "엑셀 입력" :
     load_data()
     
 elif menu == "데이터 확인" :
-    show_charts(df)
+    show_charts("유형", "지역", "평점", "예산")
 
 elif menu == "조건검색" :
-    get_user_input(df)
-    filter_places(df)
+    get_user_input("유형", "지역", "평점", "예산")
+    filter_places("유형", "지역", "평점", "예산")
 
