@@ -52,10 +52,10 @@ menu = st.sidebar.radio("원하는 기능 선택", ["엑셀 입력", "데이터 
 if menu == "엑셀 입력" :
     load_data()
     
-if menu == "데이터 확인" :
+else menu == "데이터 확인" :
     show_charts()
 
-if menu == "조건검색" :
+else menu == "조건검색" :
     get_user_input()
     filter_places()
 
