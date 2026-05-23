@@ -31,9 +31,9 @@ def load_data():
 
 def get_data():
     if "df" not in st.session_state:
-    st.warning("먼저 '엑셀 입력' 메뉴에서 엑셀 파일을 업로드하세요.")
+        st.warning("먼저 '엑셀 입력' 메뉴에서 엑셀 파일을 업로드하세요.")
 
-    return None
+        return None
     return st.session_state["df"]
 
 def get_user_input(df):
