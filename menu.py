@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def load_data(df):
+def load_data():
     uploaded_file = st.file_uploader(
         "장소 데이터 엑셀 파일을 업로드하세요",
         type=["xlsx"]
@@ -22,14 +22,14 @@ def load_data(df):
 
 
 # 저장된 데이터 가져오기 함수
-def get_data(df):
+def get_data():
     if "df" not in st.session_state:
         st.warning("먼저 '엑셀 입력' 메뉴에서 엑셀 파일을 업로드하세요.")
         return None
 
     return st.session_state["df"]
 
-def get_user_input(df):
+def get_user_input():
     selected_region = st.selectbox("지역을 선택하세요", df["지역"].unique())
     selected_budget = st.number_input("사용 가능한 예산을 입력하세요", min_value=0, value=10000, step=1000)
 
@@ -39,7 +39,7 @@ def get_user_input(df):
     ]
 
 
-def filter_places(df):
+def filter_places():
     if len(result) > 0:
         st.dataframe(result)
     else:
@@ -47,7 +47,7 @@ def filter_places(df):
 
     region_count = df["지역"].value_counts()
 
-def show_charts(df):
+def show_charts():
     st.subheader("지역별 장소 개수")
     st.bar_chart(region_count)
 
@@ -64,15 +64,12 @@ def show_charts(df):
 menu = st.sidebar.radio("원하는 기능 선택", ["엑셀 입력", "데이터 확인", "조건검색"])
 
 if menu == "엑셀 입력" :
-    get_data(df)
-    load_data(df)
+    load_data()
     
 elif menu == "데이터 확인" :
-    get_data(df)
     show_charts(df)
 
 elif menu == "조건검색" :
-    get_data(df)
     get_user_input(df)
     filter_places(df)
 
