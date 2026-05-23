@@ -67,9 +67,11 @@ if menu == "엑셀 입력" :
     load_data(df)
     
 elif menu == "데이터 확인" :
+    get_data(df)
     show_charts(df)
 
 elif menu == "조건검색" :
+    get_data(df)
     get_user_input(df)
     filter_places(df)
 
