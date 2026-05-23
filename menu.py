@@ -64,14 +64,14 @@ def show_charts():
 menu = st.sidebar.radio("원하는 기능 선택", ["엑셀 입력", "데이터 확인", "조건검색"])
 
 if menu == "엑셀 입력" :
-    load_data(df)
+    load_data()
     
 elif menu == "데이터 확인" :
-    get_data(df)
+    get_data()
     show_charts(df)
 
 elif menu == "조건검색" :
-    get_data(df)
+    get_data()
     get_user_input(df)
     filter_places(df)
 
