@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def load_data(df):
+def load_data():
     uploaded_file = st.file_uploader(
         "장소 데이터 엑셀 파일을 업로드하세요",
         type=["xlsx"]
@@ -65,7 +65,7 @@ def show_charts(df):
 menu = st.sidebar.radio("원하는 기능 선택", ["엑셀 입력", "데이터 확인", "조건검색"])
 
 if menu == "엑셀 입력" :
-    load_data(df)
+    load_data()
     
 elif menu == "데이터 확인" :
     show_charts(df)
