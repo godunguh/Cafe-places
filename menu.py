@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def load_data():
+def load_data(df):
     uploaded_file = st.file_uploader(
         "장소 데이터 엑셀 파일을 업로드하세요",
         type=["xlsx"]
@@ -22,14 +22,14 @@ def load_data():
 
 
 # 저장된 데이터 가져오기 함수
-def get_data():
+def get_data(df):
     if "df" not in st.session_state:
         st.warning("먼저 '엑셀 입력' 메뉴에서 엑셀 파일을 업로드하세요.")
         return None
 
     return st.session_state["df"]
 
-def get_user_input():
+def get_user_input(df):
     selected_region = st.selectbox("지역을 선택하세요", df["지역"].unique())
     selected_budget = st.number_input("사용 가능한 예산을 입력하세요", min_value=0, value=10000, step=1000)
 
@@ -39,7 +39,7 @@ def get_user_input():
     ]
 
 
-def filter_places():
+def filter_places(df):
     if len(result) > 0:
         st.dataframe(result)
     else:
@@ -68,9 +68,9 @@ if menu == "엑셀 입력" :
     load_data()
     
 elif menu == "데이터 확인" :
-    show_charts()
+    show_charts(df)
 
 elif menu == "조건검색" :
-    get_user_input()
-    filter_places()
+    get_user_input(df)
+    filter_places(df)
 
