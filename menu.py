@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as st
 
 def load_file():
     uploaded_file = st.file_uploader("장소 데이터 엑셀 파일을 업로드하세요",type=["xlsx"])
