@@ -68,7 +68,7 @@ if menu == "엑셀 입력" :
     load_data()
     
 elif menu == "데이터 확인" :
-    show_charts()
+    show_charts(df)
 
 elif menu == "조건검색" :
     get_user_input()
