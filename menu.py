@@ -47,7 +47,7 @@ def filter_places():
 
     region_count = df["지역"].value_counts()
 
-def show_charts():
+def show_charts(df):
     st.subheader("지역별 장소 개수")
     st.bar_chart(region_count)
 
@@ -67,7 +67,7 @@ if menu == "엑셀 입력" :
     load_data()
     
 elif menu == "데이터 확인" :
-    show_charts()
+    show_charts(df)
 
 elif menu == "조건검색" :
     get_user_input()
