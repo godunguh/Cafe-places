@@ -48,7 +48,7 @@ def search_recommendations(df):
         "최대 평점",
         min_value=0,
         value=5,
-        step=0.1
+        step=1
     )
     selected_budget = st.number_input(
         "최대 예산",
