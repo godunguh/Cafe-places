@@ -56,7 +56,7 @@ def search_recommendations(df):
         (df["추천상황"] == selected_situation) &
         (df["추천대상"] == selected_target) &
         (df["예산"] <= selected_budget) & 
-        (df["예약필요"] <= selected_budget)
+        (df["예약필요"] == selected_budget)
     ]
 
     st.subheader("검색 결과")
