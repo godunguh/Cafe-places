@@ -41,8 +41,15 @@ def search_recommendations(df):
     selected_purpose = st.selectbox("추천목적 선택", df["추천목적"].unique())
     selected_situation = st.selectbox("추천상황 선택", df["추천상황"].unique())
     selected_target = st.selectbox("추천대상 선택", df["추천대상"].unique())
-    selected_target = st.selectbox("예약여부 선택", df["예약필요"].unique())
+    selected_appoint = st.selectbox("예약여부 선택", df["예약필요"].unique())
+    selected_inout = st.selectbox("실내여부 선택", df["실내여부"].unique())
 
+    selected_good = st.number_input(
+        "최대 평점",
+        min_value=0,
+        value=5,
+        step=0.1
+    )
     selected_budget = st.number_input(
         "최대 예산",
         min_value=0,
@@ -56,7 +63,11 @@ def search_recommendations(df):
         (df["추천상황"] == selected_situation) &
         (df["추천대상"] == selected_target) &
         (df["예산"] <= selected_budget) & 
-        (df["예약필요"] == selected_budget)
+        (df["예약필요"] == selected_appoint)
+        (df["실내여부 선택"] == selected_inout)
+        (df["평점"] <= selected_good)
+
+        
     ]
 
     st.subheader("검색 결과")
