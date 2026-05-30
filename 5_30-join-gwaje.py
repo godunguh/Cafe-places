@@ -64,7 +64,7 @@ def search_recommendations(df):
         (df["추천대상"] == selected_target) &
         (df["예산"] <= selected_budget) & 
         (df["예약필요"] == selected_appoint) &
-        (df["실내여부 선택"] == selected_inout) &
+        (df["실내여부"] == selected_inout) &
         (df["평점"] <= selected_good)
 
         
