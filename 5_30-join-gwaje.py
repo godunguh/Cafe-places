@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 
@@ -35,24 +34,68 @@ def show_joined_data(df):
     st.dataframe(df)
 
 
-def display_recommendation_details(df_results):
+def generate_recommend_reason(row):
     """
-    추천 결과 데이터프레임을 받아서 각 추천에 대한 상세 설명과 이유를 표시합니다.
-    '장소명', '설명', '추천이유' 컬럼이 존재한다고 가정합니다.
+    주어진 데이터프레임 행(row)에서 추천 이유 문자열을 생성합니다.
     """
-    if not df_results.empty:
-        st.subheader("선택된 추천 장소 상세 정보")
-        for index, row in df_results.iterrows():
-            # '장소명' 컬럼이 존재하면 해당 이름을, 없으면 place_id를 사용
-            place_name = row['장소명'] if '장소명' in row.index else f"Place ID: {row['place_id']}"
-            st.write(f"### {place_name} 추천!")
-            if '설명' in row.index:
-                st.write(f"**설명:** {row['설명']}")
-            if '추천이유' in row.index:
-                st.write(f"**추천 이유:** {row['추천이유']}")
-            st.markdown("---") # 각 추천 사이에 구분선 추가
+    reason_parts = []
+    place_name = row.get('장소명', '알 수 없는 장소')
+
+    reason_parts.append(f"이 장소 '{place_name}'는 ")
+
+    if '실내여부' in row.index:
+        if row['실내여부'] == '실내':
+            reason_parts.append("실내에서 즐길 수 있으며")
+        elif row['실내여부'] == '실외':
+            reason_parts.append("야외에서 즐길 수 있으며")
+
+    if '예산' in row.index:
+        if pd.notna(row['예산']) and row['예산'] > 0:
+            reason_parts.append(f"예산이 {row['예산']:,}원으로")
+            if row['예산'] < 10000: # 예산 범위에 따라 '저렴' 또는 '적당' 판단
+                reason_parts.append("비교적 저렴하고")
+            else:
+                reason_parts.append("적당하며")
+
+    if '평점' in row.index and pd.notna(row['평점']) and row['평점'] >= 4.0:
+        reason_parts.append("평점이 높아")
+    elif '평점' in row.index and pd.notna(row['평점']) and row['평점'] > 0:
+        reason_parts.append(f"평점이 {row['평점']}이고")
+
+    if '평균소요시간(분)' in row.index and pd.notna(row['평균소요시간(분)']):
+        if row['평균소요시간(분)'] <= 60:
+            reason_parts.append("평균 소요시간이 짧아")
+        else:
+            reason_parts.append(f"평균 소요시간이 {row['평균소요시간(분)']}분으로")
+
+    if '추천목적' in row.index and pd.notna(row['추천목적']):
+        reason_parts.append(f"{row['추천목적']}에 적합하여")
+
+    if '추천상황' in row.index and pd.notna(row['추천상황']):
+        reason_parts.append(f"{row['추천상황']}에 잘 어울리며")
+
+    if '추천대상' in row.index and pd.notna(row['추천대상']):
+        reason_parts.append(f"{row['추천대상']}에게 좋은 곳이라")
+
+    # 마지막 '그리고' 또는 '하며' 연결 제거 및 마침표 추가
+    if reason_parts and len(reason_parts) > 1:
+        # 마지막 두 요소를 합치고 '추천합니다.' 추가
+        final_reason = " ".join(reason_parts[1:])
+        final_reason = final_reason.strip()
+        if final_reason.endswith('이고'):
+            final_reason = final_reason[:-2] + '기 때문에'
+        elif final_reason.endswith('하며'):
+            final_reason = final_reason[:-2] + '기에'
+        elif final_reason.endswith('하고'):
+            final_reason = final_reason[:-2] + '므로'
+        elif final_reason.endswith('이라'):
+            final_reason = final_reason[:-2] + '입니다.'
+        elif final_reason.endswith('고'):
+            final_reason = final_reason[:-1] + '며'
+
+        return f"{reason_parts[0]}{final_reason} 추천합니다."
     else:
-        st.info("표시할 추천 상세 정보가 없습니다.")
+        return f"이 장소 '{place_name}'에 대한 추천 이유를 생성하기 어렵습니다."
 
 
 def search_recommendations(df):
@@ -93,16 +136,17 @@ def search_recommendations(df):
         (df["실내여부"] == selected_inout) &
         (df["평점"] <= selected_good) &
         (df["평균소요시간(분)"] <= selected_time)
-
-
-    ]
+    ].copy() # 기존 DataFrame을 직접 수정하지 않고 copy() 사용
 
     st.subheader("검색 결과")
 
-    if len(result) > 0:
+    if not result.empty:
         st.dataframe(result)
-        # 새로 추가된 기능: 추천 상세 정보 및 이유 표시
-        display_recommendation_details(result)
+        st.subheader("추천 이유")
+        for index, row in result.iterrows():
+            reason = generate_recommend_reason(row)
+            st.write(reason)
+            st.markdown("----") # 각 추천 이유 사이에 구분선 추가
     else:
         st.warning("조건에 맞는 추천 장소가 없습니다.")
 
@@ -144,6 +188,3 @@ if uploaded_file is not None:
         search_recommendations(merged_df)
 
     elif menu == "데이터 시각화":
-        show_chart(merged_df)
-
-
