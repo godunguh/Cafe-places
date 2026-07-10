@@ -39,15 +39,21 @@ def generate_recommend_reason(row):
     주어진 데이터프레임 행(row)에서 추천 이유 문자열을 생성합니다.
     """
     reason_parts = []
-    place_name = row.get('장소명', '알 수 없는 장소')
+    
+    # 장소명 설정: '장소명' 컬럼이 있으면 사용, 없거나 NaN이면 'place_id'로 대체
+    place_name_display = '알 수 없는 장소'
+    if '장소명' in row.index and pd.notna(row['장소명']):
+        place_name_display = str(row['장소명'])
+    elif 'place_id' in row.index and pd.notna(row['place_id']):
+        place_name_display = f"ID:{row['place_id']}"
 
-    reason_parts.append(f"이 장소 '{place_name}'는 ")
+    reason_parts.append(f"이 장소 {place_name_display}는 ")
 
     if '실내여부' in row.index:
         if row['실내여부'] == '실내':
-            reason_parts.append("실내에서 즐길 수 있으며")
+            reason_parts.append("실내이며")
         elif row['실내여부'] == '실외':
-            reason_parts.append("야외에서 즐길 수 있으며")
+            reason_parts.append("야외이며")
 
     if '예산' in row.index:
         if pd.notna(row['예산']) and row['예산'] > 0:
@@ -68,13 +74,13 @@ def generate_recommend_reason(row):
         else:
             reason_parts.append(f"평균 소요시간이 {row['평균소요시간(분)']}분으로")
 
-    if '추천목적' in row.index and pd.notna(row['추천목적']):
+    if '추천목적' in row.index and pd.notna(row['추천목적']) and str(row['추천목적']).strip() != '':
         reason_parts.append(f"{row['추천목적']}에 적합하여")
 
-    if '추천상황' in row.index and pd.notna(row['추천상황']):
+    if '추천상황' in row.index and pd.notna(row['추천상황']) and str(row['추천상황']).strip() != '':
         reason_parts.append(f"{row['추천상황']}에 잘 어울리며")
 
-    if '추천대상' in row.index and pd.notna(row['추천대상']):
+    if '추천대상' in row.index and pd.notna(row['추천대상']) and str(row['추천대상']).strip() != '':
         reason_parts.append(f"{row['추천대상']}에게 좋은 곳이라")
 
     # 마지막 '그리고' 또는 '하며' 연결 제거 및 마침표 추가
@@ -95,7 +101,7 @@ def generate_recommend_reason(row):
 
         return f"{reason_parts[0]}{final_reason} 추천합니다."
     else:
-        return f"이 장소 '{place_name}'에 대한 추천 이유를 생성하기 어렵습니다."
+        return f"이 장소 {place_name_display}에 대한 추천 이유를 생성하기 어렵습니다."
 
 
 def search_recommendations(df):
