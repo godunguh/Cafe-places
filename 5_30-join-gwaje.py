@@ -47,7 +47,7 @@ def generate_recommend_reason(row):
     elif 'place_id' in row.index and pd.notna(row['place_id']):
         place_name_display = f"ID:{row['place_id']}"
 
-    reason_parts.append(f"이 장소 {place_name_display}는 ")
+    reason_parts.append(f"이 장소는 ")
 
     if '실내여부' in row.index:
         if row['실내여부'] == '실내':
