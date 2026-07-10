@@ -39,10 +39,10 @@ def generate_recommend_reason(row):
     주어진 데이터프레임 행(row)에서 추천 이유 문자열을 생성합니다.
     """
     reason_parts = []
-    
-    # 장소명 설정: '장소명' 컬럼이 있으면 사용, 없거나 NaN이면 'place_id'로 대체
+
+    # 장소명 설정: '장소명' 컬럼이 있으면 사용, 없거나 NaN, 또는 빈 문자열이면 'place_id'로 대체
     place_name_display = '알 수 없는 장소'
-    if '장소명' in row.index and pd.notna(row['장소명']):
+    if '장소명' in row.index and pd.notna(row['장소명']) and str(row['장소명']).strip() != '':
         place_name_display = str(row['장소명'])
     elif 'place_id' in row.index and pd.notna(row['place_id']):
         place_name_display = f"ID:{row['place_id']}"
