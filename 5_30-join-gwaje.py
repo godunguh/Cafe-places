@@ -188,3 +188,4 @@ if uploaded_file is not None:
         search_recommendations(merged_df)
 
     elif menu == "데이터 시각화":
+        show_chart(merged_df)
